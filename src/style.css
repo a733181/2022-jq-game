@@ -189,6 +189,7 @@ body {
 
 .attack {
   position: absolute;
+  height: 100px;
 }
 
 .game-btns {

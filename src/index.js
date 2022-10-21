@@ -29,11 +29,12 @@ const obstacle = [
   },
 ];
 
-const setTime = 15;
+const setTime = 30;
 const setLife = 3;
 const setScore = 0;
+let setObstacleSpeed = 1000;
 let time, life, userIndex, score;
-let timer;
+let timer, obstacleTimer;
 
 $('.select-form').on('submit', function (e) {
   e.preventDefault();
@@ -106,29 +107,31 @@ function startGameHandler() {
       endGameHandler();
     } else {
       time--;
-      const obstacleIndex = getRandomHandler(1);
-      const obstacleYIndex = getRandomHandler(2);
-      const yIndex = obstacle[obstacleIndex].postion[obstacleYIndex];
-      const obstacleEl = $(
-        `<img src="${obstacle[obstacleIndex].img}" class="obstacle" data-idx="${obstacleIndex}" />`
-      );
-      obstacleEl.css({ top: yIndex, left: '1200px' });
-      $('.game').append(obstacleEl);
-      moveHandler(obstacleEl);
-      countyHandler();
       $('.time-text').text(`${String(time).padStart(2, '0')}`);
     }
   }, 1000);
+
+  obstacleTimer = setInterval(() => {
+    const obstacleIndex = getRandomHandler(1);
+    const obstacleYIndex = getRandomHandler(2);
+    const yIndex = obstacle[obstacleIndex].postion[obstacleYIndex];
+    const obstacleEl = $(
+      `<img src="${obstacle[obstacleIndex].img}" class="obstacle" data-idx="${obstacleIndex}" />`
+    );
+    obstacleEl.css({ top: yIndex, left: '1200px' });
+    $('.game').append(obstacleEl);
+    moveHandler(obstacleEl);
+    countyHandler();
+  }, setObstacleSpeed);
 }
 
 function countyHandler(type = 'life') {
   let deduction = 80;
-
   if (type === 'attack') {
     if (userIndex === 0) {
-      deduction = 260;
+      deduction = 300;
     } else if (userIndex === 1) {
-      deduction = 230;
+      deduction = 250;
     } else {
       deduction = 200;
     }
@@ -141,13 +144,18 @@ function countyHandler(type = 'life') {
     const getObstacleYData = Number(
       obstacle[$(this).data('idx')].postion[0].replace('px', '')
     );
+
     const judgeY =
       countyY - getObstacleYData < 5 && countyY - getObstacleYData > -5;
     if (countyX < deduction && countyX > 0) {
       if (judgeY && type === 'life') {
         life--;
         $('.life').eq(life).css('opacity', '0');
-        $(this).stop().fadeOut(300);
+        $(this)
+          .stop()
+          .fadeOut(300, function () {
+            $(this).remove();
+          });
         if (life < 0) {
           endGameHandler();
         }
@@ -160,7 +168,11 @@ function countyHandler(type = 'life') {
         $(this).attr('src', user[userIndex].attackImg);
         $(this).removeClass('obstacle').addClass('attack');
         setTimeout(() => {
-          $(this).stop().fadeOut(200);
+          $(this)
+            .stop()
+            .fadeOut(200, function () {
+              $(this).remove();
+            });
         }, 300);
         $('.score-number').text(score);
       }
@@ -174,7 +186,8 @@ function resetGameHandler() {
 }
 
 function endGameHandler() {
-  clearTimeout(timer);
+  clearInterval(timer);
+  clearInterval(obstacleTimer);
   $('.game img').remove();
   $('.score .score-user').remove();
   $('.score-text').css('opacity', '0');
@@ -197,8 +210,8 @@ function endGameHandler() {
 }
 
 function moveHandler(el) {
-  el.stop().animate({ left: '-=326px' }, 1000, function () {
-    if (el.css('left') === '0px') {
+  el.stop().animate({ left: '-=326px' }, setObstacleSpeed, function () {
+    if (el.css('left').replace('px', '') < 0) {
       el.remove();
     } else {
       moveHandler(el);
