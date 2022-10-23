@@ -9,57 +9,111 @@
   </head>
   <body>
     <div class="container">
-      <div class="select-user">
-        <p>遊戲說明：按上下移動角色，按F攻擊(樹叢無法被攻擊)</p>
-        <h1 class="select-title">選擇角色</h1>
-        <form class="select-form">
-          <div class="select-group">
-            <input
-              type="radio"
-              name="select"
-              value="0"
-              id="user1"
-              class="select-radio"
-              checked
-            />
-            <label for="user1" class="select-lable">
+      <div class="start-container">
+        <div class="illustrate-container">
+          <div class="illustrate-content">
+            <h2>遊戲說明：</h2>
+            <p></p>
+            <div>
+              <span>透過鍵盤</span>
               <img
-                src="./src/img/role/archer.png"
-                alt="archer"
-                class="select-img"
+                src="./src/img/icons/arrow-up-solid.svg"
+                alt="up"
+                class="icons illustrate-icon-up"
               />
-            </label>
-            <input
-              type="radio"
-              name="select"
-              value="1"
-              id="user2"
-              class="select-radio"
-            />
-            <label for="user2" class="select-lable">
               <img
-                src="./src/img/role/Knight.png"
-                alt="archer"
-                class="select-img"
+                src="./src/img/icons/arrow-down-solid.svg"
+                alt="down"
+                class="icons illustrate-icon-down"
               />
-            </label>
-            <input
-              type="radio"
-              name="select"
-              value="2"
-              id="user3"
-              class="select-radio"
-            />
-            <label for="user3" class="select-lable">
+              <span>按鍵移動角色</span>
+            </div>
+            <div>
+              <span>透過按鍵</span>
               <img
-                src="./src/img/role/wizard.png"
-                alt="archer"
-                class="select-img"
+                src="./src/img/icons/f-solid.svg"
+                alt="f"
+                class="icons illustrate-icon-f"
               />
-            </label>
+              <span>攻擊怪物</span>
+              <img
+                src="./src/img/obstacle/L1_block_2.png"
+                class="illustrate-img"
+              />
+              <img
+                src="./src/img/obstacle/L2_block_2.png"
+                class="illustrate-img"
+              />
+              <span>獲得分數</span>
+            </div>
+            <div>
+              <span>並閃躲障礙物</span>
+              <img
+                src="./src/img/obstacle/L1_block_1.png"
+                class="illustrate-img"
+              />
+              <img
+                src="./src/img/obstacle/L2_block_1.png"
+                class="illustrate-img"
+              />
+            </div>
+            <div>
+              <p>撞到怪物及障礙物會扣取生命值</p>
+            </div>
           </div>
-          <button type="submit" class="btn select-button">開始遊戲</button>
-        </form>
+          <button type="button" class="illustrate-btn btn">確定</button>
+        </div>
+        <div class="select-user">
+          <h1 class="select-title">選擇角色</h1>
+          <form class="select-form">
+            <div class="select-group">
+              <input
+                type="radio"
+                name="select"
+                value="0"
+                id="user1"
+                class="select-radio"
+                checked
+              />
+              <label for="user1" class="select-lable">
+                <img
+                  src="./src/img/role/archer.png"
+                  alt="archer"
+                  class="select-img"
+                />
+              </label>
+              <input
+                type="radio"
+                name="select"
+                value="1"
+                id="user2"
+                class="select-radio"
+              />
+              <label for="user2" class="select-lable">
+                <img
+                  src="./src/img/role/Knight.png"
+                  alt="archer"
+                  class="select-img"
+                />
+              </label>
+              <input
+                type="radio"
+                name="select"
+                value="2"
+                id="user3"
+                class="select-radio"
+              />
+              <label for="user3" class="select-lable">
+                <img
+                  src="./src/img/role/wizard.png"
+                  alt="archer"
+                  class="select-img"
+                />
+              </label>
+            </div>
+            <button type="submit" class="btn select-button">開始遊戲</button>
+          </form>
+        </div>
       </div>
       <div class="game-container">
         <div class="bg">
